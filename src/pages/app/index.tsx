@@ -11,46 +11,35 @@ import { BASE_URL } from 'web/roots';
 import { useEffect } from 'react';
 // import TmpMap from 'web/components/ui/map/tmpHereMap';
 
-export const getServerSideProps: GetServerSideProps<{
-  repo: apiPaginatedTypes
-}> = async (context) => {
-  let auth: any = context.req.cookies?.Auth;
-  auth = JSON.parse(auth);
-  let countData: Record<string, number> = {};
-  const req = await apiInstance.get(BASE_URL + 'battery_types/get_all', {
-    headers: {
-      Authorization: `Bearer ${auth.token.access_token}`,
-    },
-  });
-  const res: apiPaginatedTypes = req.data;
-  countData['batteryTotal'] = res.total;
+// export const getServerSideProps: GetServerSideProps<{
+//   repo: apiPaginatedTypes
+// }> = async (context) => {
+//   let auth: any = context.req.cookies?.Auth;
+//   auth = JSON.parse(auth);
+//   let countData: Record<string, number> = {};
+//   const req = await apiInstance.get(BASE_URL + 'battery_types/get_all', {
+//     headers: {
+//       Authorization: `Bearer ${auth.token.access_token}`,
+//     },
+//   });
+//   const res: apiPaginatedTypes = req.data;
+//   countData['batteryTotal'] = res.total;
 
-  const req2 = await apiInstance.get(BASE_URL + 'stations/get_all', {
-    headers: {
-      Authorization: `Bearer ${auth.token.access_token}`,
-    },
-  });
+//   const req2 = await apiInstance.get(BASE_URL + 'stations/get_all', {
+//     headers: {
+//       Authorization: `Bearer ${auth.token.access_token}`,
+//     },
+//   });
 
-  const res2: apiPaginatedTypes = req2.data;
-  countData['stationTotal'] = res2.total;
+//   const res2: apiPaginatedTypes = req2.data;
+//   countData['stationTotal'] = res2.total;
 
-  // console.log('from server ', countData);
+//   // console.log('from server ', countData);
   
-  return { props: { countData } }
-}
+//   return { props: { countData } }
+// }
 
-export default function Home({
-  repo,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
-
-  const { states } = useBatteries({ fetchAllBatteries: true });
-  const { totalBatteries } = states;
-
-  useEffect(() => {
-    // console.log('checking ', repo);
-    
-  }, [repo])
-
+export default function Home() {
 
   // const HereDashboardMap = dynamic(() => import("../../components/ui/map/HereDashboardMap"), {
   //   ssr: false,

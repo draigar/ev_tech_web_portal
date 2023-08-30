@@ -49,7 +49,7 @@ export default function CreateBatteries() {
 
     const GetBatteryTypes = useCallback(() => {
         const { data, status, refetch, isFetching } = fetchBatteryTypes;
-        const res: apiPaginatedTypes = data;
+        const res: any = data;
         const resultStatus: any = res?.items;
         const result: any = res?.items;
         console.log('battery type ' + result)
