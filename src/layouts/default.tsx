@@ -11,24 +11,24 @@ import { layoutTypes } from "web/types"
 export const DefaultLayout = (props: layoutTypes) => {
     const { children, data, pageTitle, subTitle, title } = props;
 
-    useEffect(() => {
-        Promise.all([
-            loadScript('/libs/bootstrap/js/bootstrap.bundle.min.js'),
-            loadScript('/libs/simplebar/simplebar.min.js'),
-            loadScript('/libs/node-waves/waves.min.js'),
-            loadScript('/libs/feather-icons/feather.min.js'),
-            loadScript('/js/pages/plugins/lord-icon-2.1.0.js'),
-            loadScript('/js/plugins.js'),
-            loadScript('/libs/apexcharts/apexcharts.min.js'),
-            loadScript('/libs/jsvectormap/js/jsvectormap.min.js'),
-            loadScript('/libs/jsvectormap/maps/world-merc.js'),
-            loadScript('/libs/swiper/swiper-bundle.min.js'),
-            loadScript('/js/pages/datatables.init.js'),
-            loadScript('/js/app.js'),
-        ]).then(() => {})
+    // useEffect(() => {
+    //     Promise.all([
+    //         loadScript('/libs/bootstrap/js/bootstrap.bundle.min.js'),
+    //         loadScript('/libs/simplebar/simplebar.min.js'),
+    //         loadScript('/libs/node-waves/waves.min.js'),
+    //         loadScript('/libs/feather-icons/feather.min.js'),
+    //         loadScript('/js/pages/plugins/lord-icon-2.1.0.js'),
+    //         loadScript('/js/plugins.js'),
+    //         loadScript('/libs/apexcharts/apexcharts.min.js'),
+    //         loadScript('/libs/jsvectormap/js/jsvectormap.min.js'),
+    //         loadScript('/libs/jsvectormap/maps/world-merc.js'),
+    //         loadScript('/libs/swiper/swiper-bundle.min.js'),
+    //         loadScript('/js/pages/datatables.init.js'),
+    //         loadScript('/js/app.js'),
+    //     ]).then(() => {})
 
-        return () => {}
-    }, [])
+    //     return () => {}
+    // }, [])
 
     useEffect(() => {
 

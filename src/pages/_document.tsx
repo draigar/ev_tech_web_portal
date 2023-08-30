@@ -42,8 +42,8 @@ export default function Document() {
 
         {/* <Script src="/js/pages/dashboard-ecommerce.init.js" strategy="lazyOnload"></Script> */}
 
-        {/* <Script src="/js/pages/datatables.init.js" strategy="lazyOnload"></Script>
-        <Script src="/js/app.js" strategy="lazyOnload"></Script> */}
+        <Script src="/js/pages/datatables.init.js" strategy="lazyOnload"></Script>
+        <Script src="/js/app.js" strategy="lazyOnload"></Script>
       </body>
     </Html>
   )
