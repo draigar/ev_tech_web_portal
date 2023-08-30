@@ -1,11 +1,12 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { DashboardMapParams, DefaultButton, Footer, GreetingText } from "web/components";
+import { DefaultButton, Footer, GreetingText } from "web/components";
 import { useBatteries } from "web/hooks";
 import { DefaultLayout } from "web/layouts";
 import { apiPaginatedTypes, batteryDataList } from "web/types";
-import {undefined} from "zod";
+import { undefined } from "zod";
 
 export default function Batteries() {
     const [idNumber, setIdNumber] = useState('');
@@ -14,6 +15,10 @@ export default function Batteries() {
     const [selectedLat, setSelectedLat] = useState(6.546513741105146);
     const [selectedLng, setSelectedLng] = useState(3.3629270772567477);
     const [selectedBattery, setSelectedBattery] = useState<batteryDataList>();
+
+    const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
+        ssr: false,
+    });
 
     const { fetchAllBatteries, searchBatteries } = useBatteries({ fetchAllBatteries: false });
 

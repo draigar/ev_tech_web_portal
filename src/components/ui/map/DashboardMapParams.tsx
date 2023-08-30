@@ -8,21 +8,45 @@ interface MarkerObj {
     lng?: number;
 }
 
-export const DashboardMapParams = (props: MarkerObj) => {
+const center = {
+    lat: 0,
+    lng: 0,
+};
+
+const DashboardMapParams = (props: MarkerObj) => {
     const {lat, lng}: any = props;
     const libraries = useMemo(() => ['places'], []);
+    const [userLocation, setUserLocation] = useState(center);
 
     const NEXT_PUBLIC_GOOGLE_MAPS_KEY = process.env.GOOGLE_MAP_API_KEY
 
     const { isLoaded } = useLoadScript({
-        googleMapsApiKey: NEXT_PUBLIC_GOOGLE_MAPS_KEY as string,
+        googleMapsApiKey: "AIzaSyCvJYyo01U4D2Hgt7ckSgDNgQumO0YhyaA",
         libraries: libraries as any,
     });
 
-    const mapCenter: any = useMemo(
-        () => ({ lat: lat, lng:  lng}),
-        []
-    );
+    // const mapCenter: any = useMemo(
+    //     () => ({ lat: lat, lng:  lng}),
+    //     []
+    // );
+
+    useEffect(() => {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const { latitude, longitude } = position.coords;
+                    setUserLocation({ lat: latitude, lng: longitude });
+                    console.log('=================position===================');
+                    console.log(position);
+                    console.log('====================================');
+                },
+                (error) => {
+                    console.error('Error getting user location:', error);
+                }
+            );
+        }
+        console.log('api key ', NEXT_PUBLIC_GOOGLE_MAPS_KEY as string)
+    }, []);
 
     const grayStyles: google.maps.MapOptions['styles'] = [
         {
@@ -71,7 +95,7 @@ export const DashboardMapParams = (props: MarkerObj) => {
             <GoogleMap
                 options={mapOptions}
                 zoom={14}
-                center={mapCenter}
+                center={userLocation}
                 mapTypeId={google.maps.MapTypeId.ROADMAP}
                 mapContainerStyle={{ width: '100%', height: '100%', borderRadius: 8 }}
                 onLoad={() => console.log('Map Component Loaded...')}
@@ -96,3 +120,5 @@ export const DashboardMapParams = (props: MarkerObj) => {
         </div>
     );
 };
+
+export default DashboardMapParams;

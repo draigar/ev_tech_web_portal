@@ -1,10 +1,11 @@
+import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { DashboardMapParams, DefaultButton, Footer, GreetingText } from "web/components";
+import { DefaultButton, Footer, GreetingText } from "web/components";
 import { useBatteries } from "web/hooks";
 import { DefaultLayout } from "web/layouts";
 import { apiPaginatedTypes, batteryDataList } from "web/types";
-import {undefined} from "zod";
+import { undefined } from "zod";
 
 export default function MobilityDevices() {
 
@@ -14,6 +15,10 @@ export default function MobilityDevices() {
     const [selectedLat, setSelectedLat] = useState(6.546513741105146);
     const [selectedLng, setSelectedLng] = useState(3.3629270772567477);
     const [selectedBattery, setSelectedBattery] = useState<batteryDataList>();
+
+    const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
+        ssr: false,
+    });
 
     const { fetchAllBatteries, searchBatteries } = useBatteries({ fetchAllBatteries: false });
 
@@ -263,7 +268,7 @@ export default function MobilityDevices() {
                             </ul>
                         </div>
                         <div className="tab-pane" id="battery-info" role="tabpanel">
-                        <ul className="list-group list-group-flush">
+                            <ul className="list-group list-group-flush">
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>State of Charge (SOC):</span> <span>90%</span></li>
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Voltage:</span><span>49volts.</span></li>
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Current Draw:</span> <span>0.5A.</span></li>

@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { DashboardMap, Footer, GreetingText } from 'web/components'
+import { Footer, GreetingText } from 'web/components'
 import { DefaultLayout } from 'web/layouts'
 import { config } from 'web/store'
 import dynamic from "next/dynamic";
@@ -41,9 +41,9 @@ import { useEffect } from 'react';
 
 export default function Home() {
 
-  // const HereDashboardMap = dynamic(() => import("../../components/ui/map/HereDashboardMap"), {
-  //   ssr: false,
-  // });
+  const DashboardMap = dynamic(() => import("../../components/ui/map/DashboardMapParams"), {
+    ssr: false,
+  });
 
   // const TmpMap = dynamic(() => import("../../components/ui/map/tmpHereMap"), {
   //   ssr: false,
