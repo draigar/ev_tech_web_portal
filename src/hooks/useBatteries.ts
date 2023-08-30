@@ -1,8 +1,9 @@
+import { useState } from 'react';
 import { Data } from './../../node_modules/@react-google-maps/api/src/components/drawing/Data';
 import { useMutation, useQuery } from "react-query"
 import { http } from "web/config"
 import { ErrorHelper } from "web/helper";
-import { batteryCreateType, createBatteryFormType } from "web/types";
+import { apiPaginatedTypes, batteryCreateType, createBatteryFormType } from "web/types";
 
 interface UseOptions {
     fetchAllBatteries?: boolean;
@@ -10,6 +11,8 @@ interface UseOptions {
 }
 
 export const useBatteries = (config?: UseOptions) => {
+    const [totalBatteries, setTotalBatteries] = useState(0);
+    const [totalBatteryType, setTotalBatteryType] = useState(0);
 
     const fetchAllBatteries = useQuery(['fetchAllBatteries'], async () => {
         try {
@@ -24,6 +27,11 @@ export const useBatteries = (config?: UseOptions) => {
         }
     }, {
         enabled: Boolean(config?.fetchAllBatteries),
+        onSuccess: (val: apiPaginatedTypes) => {
+            if (val.total > 0) {
+                setTotalBatteries(val.total)
+            }
+        }
     })
 
     const batteryCreation = useMutation(async (data: createBatteryFormType) => {
@@ -64,7 +72,12 @@ export const useBatteries = (config?: UseOptions) => {
             throw e;
         }
     }, {
-        enabled: Boolean(config?.fetchAllBatteries),
+        enabled: Boolean(config?.fetchBatteryTypes),
+        onSuccess: (val: apiPaginatedTypes) => {
+            if (val.total > 0) {
+                setTotalBatteryType(val.total)
+            }
+        }
     })
 
     const createBatteryType = useMutation(async (data: batteryCreateType) => {
@@ -85,6 +98,10 @@ export const useBatteries = (config?: UseOptions) => {
         batteryCreation,
         searchBatteries,
         fetchBatteryTypes,
-        createBatteryType
+        createBatteryType,
+        states: {
+            totalBatteries,
+            totalBatteryType,
+        }
     }
 }
