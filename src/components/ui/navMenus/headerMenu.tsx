@@ -1,5 +1,7 @@
 import Cookies from "js-cookie";
-import { authStore } from "web/store"
+import Image from "next/image";
+import Link from "next/link";
+import { authStore, config } from "web/store"
 
 export const HeaderMenu = () => {
 
@@ -18,25 +20,29 @@ export const HeaderMenu = () => {
                     <div className="d-flex">
 
                         <div className="navbar-brand-box horizontal-logo">
-                            <a href="index.html" className="logo logo-dark" >
-                                <span className="logo-sm">
-                                    {/* <img src="/images/logo-sm.png" alt="" height="22" /> */}
-                                    <h1>Sterling Bank EVTech Project</h1>
+                            <Link href="/app">
+                                <span className="logo logo-dark">
+                                    <span className="logo-sm">
+                                        {/* <img src="/images/logo-sm.png" alt="" height="22" /> */}
+                                    </span>
+                                    <span className="logo-lg">
+                                        <Image src="/images/sterling-bank-plc.svg" alt="" width="100" height="70" />
+                                    </span>
                                 </span>
-                                <span className="logo-lg">
-                                    <img src="/images/logo-new-dark.png" alt="" height="97" />
-                                    {/* <h4>Sterling Bank EVTech Project</h4> */}
-                                </span>
-                            </a>
+                                <span className="text-black">{config.AppDescription}</span>
+                            </Link>
 
-                            <a href="index.html" className="logo logo-light">
-                                <span className="logo-sm">
-                                    {/* <img src="/images/logo-sm.png" alt="" height="22" /> */}
+                            <Link href="/app">
+                                <span className="logo logo-light">
+                                    <span className="logo-sm">
+                                        {/* <img src="/images/logo-sm.png" alt="" height="22" /> */}
+                                    </span>
+                                    <span className="logo-lg">
+                                        <Image src="/images/sterling-bank-plc.svg" alt="" width="100" height="90" />
+                                    </span>
                                 </span>
-                                <span className="logo-lg">
-                                <img src="/images/logo-new-light.png" alt="" height="97" />
-                                </span>
-                            </a>
+                                <span className="text-white">{config.AppDescription}</span>
+                            </Link>
                         </div>
 
                         <button type="button" className="btn btn-sm px-3 fs-16 header-item vertical-menu-btn topnav-hamburger" id="topnav-hamburger-icon">
@@ -424,7 +430,7 @@ export const HeaderMenu = () => {
                                     </span>
                                 </span>
                             </button>
-                            <div className="dropdown-menu dropdown-menu-end" style={{zIndex: 1000}}>
+                            <div className="dropdown-menu dropdown-menu-end" style={{ zIndex: 1000 }}>
                                 <h6 className="dropdown-header">Welcome Francis!</h6>
                                 <a className="dropdown-item" href="#"><i className="mdi mdi-account-circle text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Profile</span></a>
                                 {/* <a className="dropdown-item" href="apps-chat.html"><i className="mdi mdi-message-text-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Messages</span></a> */}
@@ -432,7 +438,7 @@ export const HeaderMenu = () => {
                                 {/* <a className="dropdown-item" href="pages-profile.html"><i className="mdi mdi-wallet text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Balance : <b>$5971.67</b></span></a> */}
                                 <a className="dropdown-item" href="#"><i className="mdi mdi-cog-outline text-muted fs-16 align-middle me-1"></i> <span className="align-middle">Settings</span></a>
                                 <a className="dropdown-item" href="#" onClick={() => Logout()}>
-                                    <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> 
+                                    <i className="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                                     <span className="align-middle" data-key="t-logout">Logout</span>
                                 </a>
                             </div>

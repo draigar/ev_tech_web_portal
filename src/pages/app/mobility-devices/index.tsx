@@ -2,58 +2,35 @@ import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { DefaultButton, Footer, GreetingText } from "web/components";
-import { useBatteries } from "web/hooks";
+import { useBatteries, useMobility } from "web/hooks";
 import { DefaultLayout } from "web/layouts";
-import { apiPaginatedTypes, batteryDataList } from "web/types";
+import { apiPaginatedTypes, batteryDataList, mobilityType } from "web/types";
 import { undefined } from "zod";
+
+const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
+    ssr: false,
+});
 
 export default function MobilityDevices() {
 
     const [idNumber, setIdNumber] = useState('');
     const [batName, setBatName] = useState('');
-    const [searchResult, setSearchResult] = useState<batteryDataList[]>([]);
+    const [searchResult, setSearchResult] = useState<mobilityType[]>([]);
     const [selectedLat, setSelectedLat] = useState(6.546513741105146);
     const [selectedLng, setSelectedLng] = useState(3.3629270772567477);
-    const [selectedBattery, setSelectedBattery] = useState<batteryDataList>();
+    const [selectedBattery, setSelectedBattery] = useState<mobilityType>();
 
-    const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
-        ssr: false,
-    });
-
-    const { fetchAllBatteries, searchBatteries } = useBatteries({ fetchAllBatteries: false });
+    const {searchMobilityDevices, states} = useMobility();
+    const {mobilitySearchData} = states;
 
     const router = useRouter();
 
-    const { data, error, isFetched, isFetching } = fetchAllBatteries
-
     const SearchForData = () => {
-        setSearchResult([]);
         if (idNumber === '') {
             alert('Opps! no search entry')
         }
         else {
-            searchBatteries.mutate({ query: idNumber }, {
-                onSuccess: (val: apiPaginatedTypes) => {
-                    const response: any = val.items;
-                    const res: batteryDataList[] = []
-                    response.map((el: batteryDataList) => {
-                        res.push({
-                            id: el.id,
-                            code: el.code,
-                            name: el.name,
-                            description: el.description,
-                            charge: el.charge,
-                            longitude: el.longitude,
-                            latitude: el.latitude,
-                            temperature: el.temperature,
-                            voltage: el.voltage,
-                            status: el.status,
-                        })
-                    })
-                    console.log('response', res)
-                    setSearchResult(res)
-                }
-            })
+            searchMobilityDevices.mutate({ query: idNumber })
         }
     }
 
@@ -64,7 +41,7 @@ export default function MobilityDevices() {
     ];
 
     const chooseABattery = (index: number) => {
-        const res = searchResult[index]
+        const res = mobilitySearchData[index]
         setSelectedBattery(res)
     }
 
@@ -83,15 +60,15 @@ export default function MobilityDevices() {
                                                                     <input type="text" value={batName} onChange={(e) => setBatName(e.target.value)} className="form-control" id="batName" />
                                                                 </div> */}
                         <div className="col-auto mt-4">
-                            <DefaultButton isLoading={searchBatteries.isLoading} isLoadingText="Searching..." onClick={() => SearchForData()} className="btn-primary">Search</DefaultButton>
+                            <DefaultButton isLoading={searchMobilityDevices.isLoading} isLoadingText="Searching..." onClick={() => SearchForData()} className="btn-primary">Search</DefaultButton>
                         </div>
                     </div>
                 </div>
             </div>
-            {searchResult && searchResult.length > 0 && (
+            {mobilitySearchData && mobilitySearchData.length > 0 && (
                 <div className="card card-animate intro-y">
                     <div className="card-body" style={{ height: '400px', maxHeight: '400px', overflow: 'auto' }}>
-                        {searchResult.map(({ id, name, code, status, charge }, i: number) => (
+                        {mobilitySearchData.map(({ name, code, customer_full_name, status }, i: number) => (
                             <div className="SearchDataList" key={i}>
                                 <div className="row">
                                     <div className="col-md-3 d-flex justify-content-center align-items-center">
@@ -100,7 +77,8 @@ export default function MobilityDevices() {
                                         </div>
                                     </div>
                                     <div className="col-md-6">
-                                        <h6>{name}</h6>
+                                        <h5>{name}</h5>
+                                        <p className="text-xs">{customer_full_name}</p>
                                         <div className="">
                                             <p className="d-flex align-items-center gap-2">
                                                 <span className="activeState" style={{
@@ -181,7 +159,7 @@ export default function MobilityDevices() {
                                 </div>
                             </div>
                             <div className="col-md-6">
-                                <h6>Litium battery</h6>
+                                <h6>{selectedBattery?.name}</h6>
                                 <div className="">
                                     <p className="d-flex align-items-center gap-2">
                                         <span className="activeState" style={{
@@ -196,18 +174,13 @@ export default function MobilityDevices() {
                         </div>
                     </div>
                     <div className="row">
-                        <div className="col-md-4">
+                        <div className="col-md-6">
                             <p>ID number</p>
-                            <h6>A8086118180</h6>
+                            <h6>{selectedBattery?.code}</h6>
                         </div>
-                        <div className="col-md-3">
-                            <p>Voltage</p>
-                            <h6>49volts</h6>
-                        </div>
-                        <div className="col-md-5" style={{ display: 'flex', flexDirection: 'column' }}>
-                            <span className="w-100" style={{ width: '100%' }}>Location</span>
-                            <span style={{ fontSize: '10px' }}>Lat: <code>74837634343489384.9887</code></span>
-                            <span style={{ fontSize: '10px' }}>Lng: <code>74837634343489384.9887</code></span>
+                        <div className="col-md-6">
+                            <p>Customer name</p>
+                            <h6>{selectedBattery?.customer_full_name}</h6>
                         </div>
                     </div>
                 </div>
@@ -219,7 +192,7 @@ export default function MobilityDevices() {
                         <li className="nav-item">
                             <a className="nav-link active" data-bs-toggle="tab" href="#station-info" role="tab">
                                 <span className="d-block d-sm-none"><i className="mdi mdi-home-variant"></i></span>
-                                <span className="d-none d-sm-block">Station Info</span>
+                                <span className="d-none d-sm-block">Mobility Info</span>
                             </a>
                         </li>
                         <li className="nav-item">
@@ -274,34 +247,6 @@ export default function MobilityDevices() {
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Current Draw:</span> <span>0.5A.</span></li>
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Temperature:</span> <span>33°C</span></li>
                                 <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Humidity:</span> <span>72%</span></li>
-                            </ul>
-                            <p className="text-muted my-4">Assigned Customer Information</p>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Name:</span> <span>Elizabeth Doe</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer ID:</span><span>A4567B87</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Address:</span> <span>No 2, Ogunji Street</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span>Location:</span>
-                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <span style={{ fontSize: '10px' }}>Lat: <code>74837634343489384.9887</code></span>
-                                        <span style={{ fontSize: '10px' }}>Lng: <code>74837634343489384.9887</code></span>
-                                    </div>
-                                    <DefaultButton onClick={() => pushToMap('customer')} className="btn-soft-info btn-sm waves-effect waves-light layout-rightside-btn">View in Map</DefaultButton>
-                                </li>
-                            </ul>
-                            <p className="text-muted my-4">Charging Station Information</p>
-                            <ul className="list-group list-group-flush">
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Name:</span> <span>Elizabeth Doe</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station ID:</span><span>A4567B87</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Address:</span> <span>No 2, Ogunji Street</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span>Location:</span>
-                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <span style={{ fontSize: '10px' }}>Lat: <code>74837634343489384.9887</code></span>
-                                        <span style={{ fontSize: '10px' }}>Lng: <code>74837634343489384.9887</code></span>
-                                    </div>
-                                    <DefaultButton onClick={() => pushToMap('station')} className="btn-soft-info btn-sm waves-effect waves-light layout-rightside-btn">View in Map</DefaultButton>
-                                </li>
                             </ul>
                         </div>
                     </div>

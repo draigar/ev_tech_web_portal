@@ -89,7 +89,7 @@ export default function BatteryTypeCreate() {
                                                             <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="name" />
                                                         </div>
                                                         <div className="col-lg-12 mt-2">
-                                                            <label htmlFor="voltage" className="form-label">Battery Voltage</label>
+                                                            <label htmlFor="voltage" className="form-label">Battery Nominal Voltage</label>
                                                             <input type="text" required value={voltage} onChange={(e) => setVoltage(e.target.value)} className="form-control" id="voltage" />
                                                         </div>
                                                         <div className="col-lg-12 mt-2">
