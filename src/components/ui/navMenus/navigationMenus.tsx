@@ -56,16 +56,32 @@ export const NavigationMenus = () => {
                         </li>
 
                         <li className="nav-item">
-                            <Link className="nav-link menu-link" href="/app/mobility-devices">
-                                <i className="ri-device-line"></i> <span data-key="t-widgets">Mobility Devices</span>
+                            <Link className="nav-link menu-link" href="#mobility" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                <i className="ri-device-line"></i> <span data-key="t-apps">Mobility Devices</span>
                             </Link>
+                            <div className="collapse menu-dropdown" id="mobility">
+                                <ul className="nav nav-sm flex-column">
+                                    <li className="nav-item">
+                                        <Link href="/app/mobility-devices" className="nav-link" data-key="t-wallet-activity"> All Mobility devices </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href="/app/mobility-devices/mobility-types" className="nav-link" data-key="t-users"> Mobility device types </Link>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
                         <li className="nav-item">
-                        <Link className="nav-link menu-link" href="/app/charging-stations">
+                            <Link className="nav-link menu-link" href="/app/charging-stations">
                                 <i className="ri-device-line"></i> <span data-key="t-widgets">Charging Stations</span>
                             </Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link menu-link" href="/app/transactions">
+                                <i className="ri-device-line"></i> <span data-key="t-widgets">Transactions</span>
+                            </Link>
+                        </li>
+
 
                         {/* <li className="nav-item">
                             <Link className="nav-link menu-link" href="#sidebarAccounts" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
@@ -101,14 +117,17 @@ export const NavigationMenus = () => {
                                     <li className="nav-item">
                                         <Link href="/app/admin/admin-roles" className="nav-link" data-key="t-users"> Admin roles </Link>
                                     </li>
+                                    <li className="nav-item">
+                                        <Link href="/app/admin/users" className="nav-link" data-key="t-users"> Users </Link>
+                                    </li>
                                 </ul>
                             </div>
                         </li>
 
                         <li className="nav-item">
-                            <a className="nav-link menu-link" href="widgets.html">
+                            <Link className="nav-link menu-link" href="/app/hotlisting">
                                 <i className="ri-file-list-3-line"></i> <span data-key="t-widgets">Hot Listing</span>
-                            </a>
+                            </Link>
                         </li>
 
                         {/* <li className="nav-item">
