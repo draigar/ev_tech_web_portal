@@ -28,3 +28,23 @@ export interface mobilityType {
     customer_address: string,
     created_by: string
 }
+
+export interface mobilityDeviceType {
+    id: number,
+    name: string,
+    code: string,
+    description: string,
+    number_of_wheels: number,
+    number_of_batteries: number,
+    number_required_without_return: number,
+    created_by: number,
+    created_at: string
+}
+
+export interface mobilityDeviceCreateType {
+    name: string,
+    description: string,
+    number_of_wheels: number,
+    number_of_batteries: number,
+    number_required_without_return: number
+}

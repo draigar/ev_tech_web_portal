@@ -2,10 +2,11 @@ import { useState } from "react"
 import { useMutation, useQuery } from "react-query";
 import { http } from "web/config";
 import { ErrorHelper, OpenNotification } from "web/helper";
-import { apiPaginatedTypes, mobilityType } from "web/types";
+import { apiPaginatedTypes, apiTypes, mobilityDeviceCreateType, mobilityDeviceType, mobilityType } from "web/types";
 
 interface UseOptions {
     fetchAllMobilityDevices?: boolean;
+    fetchAllMobilityTypes?: boolean;
 }
 
 export const useMobility = (config?: UseOptions) => {
@@ -13,6 +14,8 @@ export const useMobility = (config?: UseOptions) => {
     const [mobilityTotal, setMobilityTotal] = useState(0);
     const [mobilityData, setMobilityData] = useState<mobilityType[]>([])
     const [mobilitySearchData, setMobilitySearchData] = useState<mobilityType[]>([])
+    const [mobilityTypeData, setMobilityTypeData] = useState<mobilityDeviceType[]>([])
+    const [mobilityTypeSingleData, setMobilityTypeSingleData] = useState<mobilityDeviceType>()
 
     const fetchMobilityDevice = useQuery(['fetchMobilityDevice'],async () => {
         try {
@@ -62,13 +65,95 @@ export const useMobility = (config?: UseOptions) => {
         },
     })
 
+    const createMobilityType = useMutation(async (data: mobilityDeviceCreateType) => {
+        try {
+            const req: any = await http.post('mobility_device_types/create', data)
+            return req.data;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    })
+
+    const mobilityDeviceTypes = useQuery(['mobilityDeviceTypes'],async () => {
+        try {
+            const req: any = await http.get('mobility_device_types/get_all')
+            return req.data;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    }, {
+        enabled: Boolean(config?.fetchAllMobilityTypes),
+        onSuccess: (val: apiPaginatedTypes) => {
+            if (val.total > 0) {
+                const result: any = val.items;
+                setMobilityTypeData(result);
+            }
+        }
+    })
+
+    const deleteMobilityType = useMutation(async (data:{id: number}) => {
+        try {
+            const req: any = await http.delete(`mobility_device_types/delete/${data.id}`);
+            return req.data;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    })
+
+    const updateMobilityDeviceTypes = useMutation(async (data: {rq: mobilityDeviceCreateType; id: string | undefined}) => {
+        try {
+            const req: any = await http.post(`mobility_device_types/update/${data.id}`, data.rq);
+            return req.data;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    })
+
+    const getSingleMobilityType = useMutation(async (data: {id: string | undefined}) => {
+        try {
+            const req: any = await http.get(`mobility_device_types/get_single/${data.id}`);
+            return req.data;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    }, {
+        onSuccess: (val: apiTypes) => {
+            if (val.status) {
+                const result: any = val.data;
+                setMobilityTypeSingleData(result);
+            }
+        }
+    })
+
     return {
         fetchMobilityDevice,
         states: {
             mobilityTotal,
             mobilityData,
-            mobilitySearchData
+            mobilitySearchData,
+            mobilityTypeData,
+            mobilityTypeSingleData,
         },
         searchMobilityDevices,
+        createMobilityType,
+        mobilityDeviceTypes,
+        deleteMobilityType,
+        updateMobilityDeviceTypes,
+        getSingleMobilityType,
     }
 }

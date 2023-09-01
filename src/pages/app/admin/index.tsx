@@ -104,12 +104,16 @@ export default function Admin({
                                                                             </button>
                                                                             <ul className="dropdown-menu dropdown-menu-end">
                                                                                 {/* <li><a href="#!" className="dropdown-item"><i className="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li> */}
-                                                                                <li><a className="dropdown-item edit-item-btn"><i className="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
-                                                                                <li>
+                                                                                {/* <li>
+                                                                                    <Link href={`/app/admin/${el.username}/${el.id}`}>
+                                                                                    <span className="dropdown-item edit-item-btn"><i className="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</span>
+                                                                                    </Link>
+                                                                                </li> */}
+                                                                                {/* <li>
                                                                                     <a className="dropdown-item remove-item-btn">
                                                                                         <i className="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete
                                                                                     </a>
-                                                                                </li>
+                                                                                </li> */}
                                                                             </ul>
                                                                         </div>
                                                                     </td>

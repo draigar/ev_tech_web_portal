@@ -27,7 +27,8 @@ export const useAuth = (config?: UseOptions) => {
             throw e;
         }
     }, {
-        onSuccess: (val: apiTypes) => {
+        onSuccess(data, variables, context) {
+            const val: apiTypes = data;
             if (val.status) {
                 const response: Partial<LoginAdminApiType> = val.data;
                 const token: AuthData = {
@@ -57,7 +58,7 @@ export const useAuth = (config?: UseOptions) => {
                     user,
                 }
                 OpenNotification({
-                    description: `Welcome back ${response.first_name}`,
+                    description: `Welcome back ${variables.username}`,
                     type: 'success'
                 })
                 Cookies.set("Auth", JSON.stringify(authData));
@@ -69,8 +70,8 @@ export const useAuth = (config?: UseOptions) => {
                     description: val.message,
                     type: 'error'
                 })
-            }   
-        }
+            } 
+        },
     })
 
     const CreateAuth = useMutation(async (data: createAdminFormType) => {

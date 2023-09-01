@@ -1,13 +1,32 @@
 export interface batteryDataList {
-    id: number;
-    name: string;
-    description?: string;
-    code: string;
-    voltage: string;
-    temperature: string;
-    charge: string;
-    latitude: string;
-    longitude: string;
+    id: number
+    type_id: number
+    code: string,
+    name: string,
+    description: string,
+    qr_code: string,
+    voltage: string,
+    temperature: string,
+    charge: string,
+    humidity: string,
+    electric_current: string,
+    latitude: string,
+    longitude: string,
+    customer_id: number
+    customer_full_name: string,
+    customer_address: string,
+    station_name: string,
+    station_address: string,
+    station_id: number
+    mobility_device_code: string,
+    mobility_device_name: string,
+    mobility_device_type: number
+    mobility_device_model: string,
+    mobility_device_registration_number: string,
+    mobility_device_vin: string,
+    mobility_device_id: number
+    battery_type_name: string,
+    created_at: string
     status: 0 | 1 | 2 | 3 | 4; // 0 idle , 1 in use, 2 powered, 3 charging, 4 hot listed
 }
 
@@ -28,7 +47,8 @@ export interface createBatteryFormType {
     name: string;
     code: string;
     description: string;
-    type_id: number;
+    type_id?: number;
+    status?: number;
 }
 
 export interface batteryTypeApi {
@@ -49,5 +69,6 @@ export interface batteryCreateType {
     power: string,
     fee: number,
     collection_due_days: number,
-    collection_due_fees: number
+    collection_due_fees: number,
+    status?: number,
 }

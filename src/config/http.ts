@@ -48,6 +48,24 @@ class Http {
       return Promise.reject(e);
     }
   }
+  async delete(path: string, options: any = {}) {
+    const url = options.isGeneric ? path : BASE_URL + path;
+    try {
+      const res = await apiInstance.delete(url, {
+        headers: {
+          Authorization: options.Token
+            ? `Bearer ${options.Token}`
+            : `Bearer ${authStore.token.access_token}`,
+          options,
+        },
+      })
+      return new Promise((resolve) => {
+        resolve(res);
+      });
+    } catch (e) {
+      return Promise.reject(e);
+    }
+  }
   // async fetchGet(path: string, options: optionsFetch = {
   //   isGeneric: false,
   //   headers: {},

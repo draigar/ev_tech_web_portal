@@ -92,7 +92,7 @@ export default function Login() {
                                                 </div> */}
 
                                                 <div className="mt-4">
-                                                    <button className="btn btn-success w-100" type="submit">Sign In</button>
+                                                    <button className="btn btn-success w-100" disabled={Login.isLoading} type="submit">{Login.isLoading ? 'Logging you in' : 'Sign In'}</button>
                                                 </div>
                                             </form>
                                         </div>

@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<{
     return { props: { repo } }
 }
 
-export default function CreateAdmin({
+export default function EditAdmin({
     repo,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     const router = useRouter();

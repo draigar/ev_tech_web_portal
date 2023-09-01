@@ -73,7 +73,7 @@ export default function MobilityDevices() {
                                 <div className="row">
                                     <div className="col-md-3 d-flex justify-content-center align-items-center">
                                         <div className="border dataListIcon d-flex justify-content-center align-items-center">
-                                            <i className="ri-battery-2-charge-line iconHigh"></i>
+                                            <i className="ri-bus-wifi-line iconHigh"></i>
                                         </div>
                                     </div>
                                     <div className="col-md-6">
@@ -138,16 +138,34 @@ export default function MobilityDevices() {
     const ResultView = () => (
         <div className="screenMapSearchArea">
             <DefaultButton onClick={() => setSelectedBattery({
-                charge: "",
+                back_image: "",
+                conversion_date: "",
+                created_at: "",
+                created_by: "",
+                customer_address: "",
+                customer_full_name: "",
+                device_type_id: 0,
+                email: "",
+                front_image: "",
+                left_image: "",
+                model: "",
+                number_of_batteries: 0,
+                number_of_wheels: 0,
+                phone_number: "",
+                registration_number: "",
+                right_image: "",
+                type_code: "",
+                type_description: "",
+                type_name: "",
+                user_id: 0,
+                username: "",
+                vin: "",
                 code: "",
-                description: "",
                 id: 0,
                 latitude: "",
                 longitude: "",
                 name: "",
                 status: 0,
-                temperature: "",
-                voltage: ""
             })} className="btn-success mb-4 p-1 px-4 waves-effect waves-light layout-rightside-btn">Back</DefaultButton>
             <div className="card card-animate intro-y">
                 <div className="card-body">

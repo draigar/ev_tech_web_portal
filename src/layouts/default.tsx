@@ -3,7 +3,7 @@ import Script from "next/script";
 import { useEffect, useLayoutEffect } from "react";
 import { Customizer, HeaderMenu, NavigationMenus } from "web/components";
 import { loadScript } from "web/components/utils";
-import { authStore } from "web/store";
+import { authStore, config } from "web/store";
 import { layoutTypes } from "web/types"
 
 
@@ -50,7 +50,7 @@ export const DefaultLayout = (props: layoutTypes) => {
         <div>
             <Head>
                 <title>
-                    {title}
+                    {title} - {config.AppDescription}
                 </title>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />

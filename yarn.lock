@@ -1330,6 +1330,13 @@
   resolved "https://registry.yarnpkg.com/@types/invariant/-/invariant-2.2.35.tgz#cd3ebf581a6557452735688d8daba6cf0bd5a3be"
   integrity sha512-DxX1V9P8zdJPYQat1gHyY0xj3efl8gnMVjiM9iCY6y27lj+PoQWkgjt8jDqmovPqULkKVpKRg8J36iQiA+EtEg==
 
+"@types/jquery@^3.5.17":
+  version "3.5.17"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.5.17.tgz#c38d964441f678cd358afb92f5688ecfcb6aaa2b"
+  integrity sha512-U40tNEAGSTZ7R1OC6kGkD7f4TKW5DoVx6jd9kTB9mo5truFMi1m9Yohnw9kl1WpTPvDdj7zAw38LfCHSqnk5kA==
+  dependencies:
+    "@types/sizzle" "*"
+
 "@types/js-cookie@^3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@types/js-cookie/-/js-cookie-3.0.3.tgz#d6bfbbdd0c187354ca555213d1962f6d0691ff4e"
@@ -1426,6 +1433,11 @@
   resolved "https://registry.yarnpkg.com/@types/scheduler/-/scheduler-0.16.3.tgz#cef09e3ec9af1d63d2a6cc5b383a737e24e6dcf5"
   integrity sha512-5cJ8CB4yAx7BH1oMvdU0Jh9lrEXyPkar6F9G/ERswkCuvP4KQZfZkSjcMbAICCpQTN4OuZn8tz0HiKv9TGZgrQ==
 
+"@types/sizzle@*":
+  version "2.3.3"
+  resolved "https://registry.yarnpkg.com/@types/sizzle/-/sizzle-2.3.3.tgz#ff5e2f1902969d305225a047c8a0fd5c915cebef"
+  integrity sha512-JYM8x9EGF163bEyhdJBpR2QX1R5naCJHC8ucJylJ3w9/CVBaskdQ8WqBf8MmQrd1kRvp/a4TS8HJ+bxzR7ZJYQ==
+
 "@types/trusted-types@^2.0.2":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/trusted-types/-/trusted-types-2.0.3.tgz#a136f83b0758698df454e328759dbd3d44555311"
@@ -1509,6 +1521,11 @@ ajv@^8.6.0:
     json-schema-traverse "^1.0.0"
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
+
+animate.css@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/animate.css/-/animate.css-4.1.1.tgz#614ec5a81131d7e4dc362a58143f7406abd68075"
+  integrity sha512-+mRmCTv6SbCmtYJCN4faJMNFVNN5EuCTTprDTAo7YzIGji2KADmakjVA3+8mVDkZ2Bf09vayB35lSQIex2+QaQ==
 
 ansi-regex@^5.0.1:
   version "5.0.1"
@@ -2066,6 +2083,38 @@ damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
+
+datatables.net-dt@>=1.13.4, datatables.net-dt@^1.13.6:
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/datatables.net-dt/-/datatables.net-dt-1.13.6.tgz#da646d9e288ba690393a8bdf129916a038d14b3c"
+  integrity sha512-0fBsUi8k5e+x5e+xA/Eb5stFr2PIkHgDnbhZs8ZDLvzzL975lCm6sqBAcsTsXKvF7yuBvaDTVBTF4wOMw7PrYw==
+  dependencies:
+    datatables.net ">=1.13.4"
+    jquery ">=1.7"
+
+datatables.net-responsive-dt@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-responsive-dt/-/datatables.net-responsive-dt-2.5.0.tgz#c666cb3840adbbc39471ee3a103774dc8f47cb58"
+  integrity sha512-u0oHqG1LLrFj+cBVYpyOO03nECUJJim4EovKhdQtB2g8X0fbH7jWvLAOdDFvyIzktCYWScObqR8uUEtm6J9O6Q==
+  dependencies:
+    datatables.net-dt ">=1.13.4"
+    datatables.net-responsive ">=2.4.1"
+    jquery ">=1.7"
+
+datatables.net-responsive@>=2.4.1, datatables.net-responsive@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/datatables.net-responsive/-/datatables.net-responsive-2.5.0.tgz#56919903646648f362f58c25784794fb89effda1"
+  integrity sha512-GL7DFiRl5qqrp5ql54Psz92xTGPR0rMcrO3hzNxMfvcfpRGL5zFNTvMpTUh59Erm6u1+KoX+j+Ig1ZD3r0iFsA==
+  dependencies:
+    datatables.net ">=1.13.4"
+    jquery ">=1.7"
+
+datatables.net@>=1.13.4, datatables.net@^1.13.6:
+  version "1.13.6"
+  resolved "https://registry.yarnpkg.com/datatables.net/-/datatables.net-1.13.6.tgz#6e282adbbb2732e8df495611b8bb54e19f7a943e"
+  integrity sha512-rHNcnW+yEP9me82/KmRcid5eKrqPqW3+I/p1TwqCW3c/7GRYYkDyF6aJQOQ9DNS/pw+nyr4BVpjyJ3yoZXiFPg==
+  dependencies:
+    jquery ">=1.7"
 
 dayjs@^1.11.7:
   version "1.11.9"
@@ -3221,6 +3270,11 @@ jiti@^1.17.2:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-1.19.3.tgz#ef554f76465b3c2b222dc077834a71f0d4a37569"
   integrity sha512-5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==
 
+jquery@>=1.7, jquery@^3.7.1:
+  version "3.7.1"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.7.1.tgz#083ef98927c9a6a74d05a6af02806566d16274de"
+  integrity sha512-m4avr8yL8kmFN8psrbFFFmB/If14iN5o9nw/NgnnM+kybDJpRsAynV2BsfpTYrTRysYUdADVD7CkUUizgkpLfg==
+
 js-cookie@^3.0.5:
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/js-cookie/-/js-cookie-3.0.5.tgz#0b7e2fd0c01552c58ba86e0841f94dc2557dcdbc"
@@ -3987,6 +4041,13 @@ react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
+
+react-error-boundary@^4.0.11:
+  version "4.0.11"
+  resolved "https://registry.yarnpkg.com/react-error-boundary/-/react-error-boundary-4.0.11.tgz#36bf44de7746714725a814630282fee83a7c9a1c"
+  integrity sha512-U13ul67aP5DOSPNSCWQ/eO0AQEYzEFkVljULQIjMV0KlffTAhxuDoBKdO0pb/JZ8mDhMKFZ9NZi0BmLGUiNphw==
+  dependencies:
+    "@babel/runtime" "^7.12.5"
 
 react-is@^16.13.1:
   version "16.13.1"

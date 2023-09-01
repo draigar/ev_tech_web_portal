@@ -28,9 +28,9 @@ export default function Document() {
         <Script src="/libs/swiper/swiper-bundle.min.js" strategy="lazyOnload"></Script>
 
         <Script src="https://code.jquery.com/jquery-3.6.0.min.js" strategy="lazyOnload" />
-        <Script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js" strategy="lazyOnload" />
+        {/* <Script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js" strategy="lazyOnload" />
         <Script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js" strategy="lazyOnload" />
-        <Script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" strategy="lazyOnload" />
+        <Script src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js" strategy="lazyOnload" /> */}
         <Script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js" strategy="lazyOnload" />
         <Script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js" strategy="lazyOnload" />
         <Script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js" strategy="lazyOnload" />
@@ -42,7 +42,7 @@ export default function Document() {
 
         {/* <Script src="/js/pages/dashboard-ecommerce.init.js" strategy="lazyOnload"></Script> */}
 
-        <Script src="/js/pages/datatables.init.js" strategy="lazyOnload"></Script>
+        {/* <Script src="/js/pages/datatables.init.js" strategy="lazyOnload"></Script> */}
         <Script src="/js/app.js" strategy="lazyOnload"></Script>
       </body>
     </Html>

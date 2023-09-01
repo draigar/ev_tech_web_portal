@@ -6,54 +6,29 @@ import { DefaultButton, Footer, GreetingText } from "web/components";
 import { useBatteries } from "web/hooks";
 import { DefaultLayout } from "web/layouts";
 import { apiPaginatedTypes, batteryDataList } from "web/types";
-import { undefined } from "zod";
+
+const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
+    ssr: false,
+});
 
 export default function Batteries() {
     const [idNumber, setIdNumber] = useState('');
     const [batName, setBatName] = useState('');
-    const [searchResult, setSearchResult] = useState<batteryDataList[]>([]);
     const [selectedLat, setSelectedLat] = useState(6.546513741105146);
     const [selectedLng, setSelectedLng] = useState(3.3629270772567477);
     const [selectedBattery, setSelectedBattery] = useState<batteryDataList>();
 
-    const DashboardMapParams = dynamic(() => import("../../../components/ui/map/DashboardMapParams"), {
-        ssr: false,
-    });
-
-    const { fetchAllBatteries, searchBatteries } = useBatteries({ fetchAllBatteries: false });
+    const { searchBatteries, batteryStates } = useBatteries();
+    const {searchResultData} = batteryStates;
 
     const router = useRouter();
 
-    const { data, error, isFetched, isFetching } = fetchAllBatteries
-
     const SearchForData = () => {
-        setSearchResult([]);
         if (idNumber === '') {
             alert('Opps! no search entry')
         }
         else {
-            searchBatteries.mutate({ query: idNumber }, {
-                onSuccess: (val: apiPaginatedTypes) => {
-                    const response: any = val.items;
-                    const res: batteryDataList[] = []
-                    response.map((el: batteryDataList) => {
-                        res.push({
-                            id: el.id,
-                            code: el.code,
-                            name: el.name,
-                            description: el.description,
-                            charge: el.charge,
-                            longitude: el.longitude,
-                            latitude: el.latitude,
-                            temperature: el.temperature,
-                            voltage: el.voltage,
-                            status: el.status,
-                        })
-                    })
-                    console.log('response', res)
-                    setSearchResult(res)
-                }
-            })
+            searchBatteries.mutate({ query: idNumber })
         }
     }
 
@@ -64,7 +39,7 @@ export default function Batteries() {
     ];
 
     const chooseABattery = (index: number) => {
-        const res = searchResult[index]
+        const res = searchResultData[index]
         setSelectedBattery(res)
     }
 
@@ -88,10 +63,10 @@ export default function Batteries() {
                     </div>
                 </div>
             </div>
-            {searchResult && searchResult.length > 0 && (
+            {searchResultData && searchResultData.length > 0 && (
                 <div className="card card-animate intro-y">
                     <div className="card-body" style={{ height: '400px', maxHeight: '400px', overflow: 'auto' }}>
-                        {searchResult.map(({ id, name, code, status, charge }, i: number) => {
+                        {searchResultData.map(({ id, name, code, status, charge }, i: number) => {
                             if (name !== null) {
                                 return (
                                     <div className="SearchDataList" key={i}>
@@ -164,15 +139,34 @@ export default function Batteries() {
     const ResultView = () => (
         <div className="screenMapSearchArea">
             <DefaultButton onClick={() => setSelectedBattery({
+                battery_type_name: "",
                 charge: "",
                 code: "",
+                created_at: "",
+                customer_address: "",
+                customer_full_name: "",
+                customer_id: 0,
                 description: "",
+                electric_current: "",
+                humidity: "",
                 id: 0,
                 latitude: "",
                 longitude: "",
+                mobility_device_code: "",
+                mobility_device_id: 0,
+                mobility_device_model: "",
+                mobility_device_name: "",
+                mobility_device_registration_number: "",
+                mobility_device_type: 0,
+                mobility_device_vin: "",
                 name: "",
+                qr_code: "",
+                station_address: "",
+                station_id: 0,
+                station_name: "",
                 status: 0,
                 temperature: "",
+                type_id: 0,
                 voltage: ""
             })} className="btn-success mb-4 p-1 px-4 waves-effect waves-light layout-rightside-btn">Back</DefaultButton>
             <div className="card card-animate intro-y">
@@ -195,7 +189,7 @@ export default function Batteries() {
                                 </div>
                             </div>
                             <div className="col-md-3">
-                                {/* <button className="btn btn-sm btn-primary w-100">Select</button> */}
+                                <button onClick={() => router.push(`/app/batteries/${selectedBattery?.name}/${selectedBattery?.id}`)} className="btn btn-sm btn-success w-100">Edit</button>
                             </div>
                         </div>
                     </div>
@@ -242,17 +236,9 @@ export default function Batteries() {
                         <p className="text-muted">Assigned Customer Information</p>
                         <div className="tab-pane active" id="arrow-overview" role="tabpanel">
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Name:</span> <span>Elizabeth Doe</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer ID:</span><span>A4567B87</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Address:</span> <span>No 2, Ogunji Street</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span>Location:</span>
-                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <span style={{ fontSize: '10px' }}>Lat: <code>74837634343489384.9887</code></span>
-                                        <span style={{ fontSize: '10px' }}>Lng: <code>74837634343489384.9887</code></span>
-                                    </div>
-                                    <DefaultButton onClick={() => pushToMap('customer')} className="btn-soft-info btn-sm waves-effect waves-light layout-rightside-btn">View in Map</DefaultButton>
-                                </li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Name:</span> <span>{selectedBattery?.customer_full_name}</span></li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer ID:</span><span>{selectedBattery?.customer_id}</span></li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Customer Address:</span> <span>{selectedBattery?.station_address}</span></li>
                             </ul>
                         </div>
                     </div>
@@ -260,17 +246,9 @@ export default function Batteries() {
                         <p className="text-muted">Charging Station Information</p>
                         <div className="tab-pane active" id="arrow-overview" role="tabpanel">
                             <ul className="list-group list-group-flush">
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Name:</span> <span>Elizabeth Doe</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station ID:</span><span>A4567B87</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Address:</span> <span>No 2, Ogunji Street</span></li>
-                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                                    <span>Location:</span>
-                                    <div className="" style={{ display: 'flex', flexDirection: 'column' }}>
-                                        <span style={{ fontSize: '10px' }}>Lat: <code>74837634343489384.9887</code></span>
-                                        <span style={{ fontSize: '10px' }}>Lng: <code>74837634343489384.9887</code></span>
-                                    </div>
-                                    <DefaultButton onClick={() => pushToMap('station')} className="btn-soft-info btn-sm waves-effect waves-light layout-rightside-btn">View in Map</DefaultButton>
-                                </li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Name:</span> <span>{selectedBattery?.station_name}</span></li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station ID:</span><span>{selectedBattery?.station_id}</span></li>
+                                <li className="list-group-item" style={{ display: 'flex', justifyContent: 'space-between' }}><span>Charging Station Address:</span> <span>{selectedBattery?.station_address}</span></li>
                             </ul>
                         </div>
                     </div>
