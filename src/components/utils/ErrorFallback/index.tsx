@@ -6,6 +6,7 @@ export const ErrorFallback = (props: {error: Error; resetErrorBoundary: () => vo
             <p>{props.error.message}</p>
             <p>{props.error.stack}</p>
             <p>{props.error.name}</p>
+            
             <button onClick={() => props.resetErrorBoundary()}>Refresh Process</button>
         </div>
     )
