@@ -4,11 +4,9 @@ import { ApiError } from "./errors";
 import Cookies from "js-cookie";
 import { debugAPIError, debugAPIRequest, debugAPIResponse } from "web/helper";
 import { authStore } from "web/store";
+import { NextPageContext } from "next";
 
-// import {Agent} from 'https';
-
-// const authStore = store.Auth.auth.token;
-// console.log('from axios', authStore);
+export const nextPr = (ctx: NextPageContext) => ctx.res
 
 export const apiInstance = axios.create({
   // .. where we make our configurations
@@ -44,13 +42,9 @@ apiInstance.interceptors.response.use(
     console.log(error.response?.status);
     if (error.response?.status === 401) {
       Cookies.remove("Auth");
-      authStore.logout();
+      authStore.clearStoredData();
       if (typeof window === 'undefined') {
-        return {
-          redirect: {
-            destination: '/503'
-          }
-        };
+        return error;
       } else {
         window.location.replace("/auth/login");
       }

@@ -12,15 +12,30 @@ import { adminTypes, apiPaginatedTypes } from 'web/types'
 export const getServerSideProps: GetServerSideProps<{
     repo: apiPaginatedTypes
 }> = async (context) => {
-    let auth: any = context.req.cookies?.Auth;
+    const { req, res } = context;
+    let auth: any = req.cookies?.Auth;
     auth = JSON.parse(auth);
-    const res = await apiInstance.get(BASE_URL + 'get_all', {
+    const rep: any = await apiInstance.get(BASE_URL + 'get_all', {
         headers: {
             Authorization: `Bearer ${auth.token.access_token}`,
         },
     });
-    const repo = res.data;
-    return { props: { repo } }
+    if (rep.status) {
+        const repo = rep.data;
+        return { props: { repo } }
+    } else {
+        if (rep.response.status === 401) {
+            res.setHeader(
+                'Set-Cookie',
+                'Auth=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+            )
+            const repo = {};
+            return { props: { repo } }
+        } else {
+            const repo = {};
+            return { props: { repo } }
+        }
+    }
 }
 
 export default function Admin({
@@ -30,12 +45,12 @@ export default function Admin({
     const [admins, setAdmins] = useState<adminTypes[]>();
 
     useEffect(() => {
-        const res: any = repo.items;
+        const res: any = repo && repo.items;
 
         if (res?.length > 0) {
             setAdmins(res)
         }
-    }, [repo.items])
+    }, [repo, repo.items])
 
   return (
     <DefaultLayout title="Administration">

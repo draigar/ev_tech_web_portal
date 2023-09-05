@@ -1,13 +1,28 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { useExportData } from "web/hooks";
+import { useReactToPrint } from 'react-to-print';
 
 interface ExportDataProps {
     children: any;
     title: string;
+    jsonSheet?: any;
+    sheetName?: string;
+    fileName?: string;
 }
 
 export const ExportData = (props: ExportDataProps) => {
 
-    const { children, title } = props;
+    const { children, title, jsonSheet, fileName, sheetName } = props;
+    const {ExportToExcel} = useExportData();
+    const viewComponentRef: any = useRef(null);
+
+    const handlePrint = useReactToPrint({
+        content: () => viewComponentRef.current,
+    });
+
+    useEffect(() => {
+        
+    }, [])
 
     return (
         <div className="relative">
@@ -22,13 +37,13 @@ export const ExportData = (props: ExportDataProps) => {
                                     <span className="visually-hidden">Toggle Dropdown</span>
                                 </button>
                                 <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#">Download as Excel</a></li>
-                                    <li><a className="dropdown-item" href="#">Print</a></li>
+                                    <li><a className="dropdown-item" href="#" onClick={() => ExportToExcel(jsonSheet, fileName, sheetName)}>Download as Excel</a></li>
+                                    <li><a onClick={handlePrint} className="dropdown-item" href="#">Print</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <div className="card-body">
+                    <div className="card-body" ref={viewComponentRef}>
                         {children}
                     </div>
                 </div>

@@ -1,3 +1,4 @@
+import Cookies from "js-cookie";
 import Head from "next/head"
 import Script from "next/script";
 import { useEffect, useLayoutEffect } from "react";
@@ -40,8 +41,14 @@ export const DefaultLayout = (props: layoutTypes) => {
     }, [])
 
     useEffect(() => {
+        const authCookie = Cookies.get('Auth')
         const isLoggedIn = authStore.isLoggedIn
-        if (!isLoggedIn) {
+        if (authCookie) {
+            if (!isLoggedIn) {
+                window.location.href = "/auth/login";
+            }
+        } else {
+            authStore.clearStoredData()
             window.location.href = "/auth/login";
         }
     }, [])
@@ -50,7 +57,7 @@ export const DefaultLayout = (props: layoutTypes) => {
         <div>
             <Head>
                 <title>
-                    {title} - {config.AppDescription}
+                    {`${title} - ${config.AppDescription}`}
                 </title>
                 <meta name="description" content="" />
                 <link rel="icon" href="/favicon.ico" />

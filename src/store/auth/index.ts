@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { configurePersistable, makePersistable } from "mobx-persist-store";
+import { clearPersistedStore, configurePersistable, makePersistable } from "mobx-persist-store";
 import { AuthData, UserDataType } from "web/types";
 
 class AuthStore {
@@ -43,6 +43,10 @@ class AuthStore {
     return new Promise<any>((resolve: any) => {
       resolve(true);
     });
+  }
+
+  async clearStoredData() {
+    await clearPersistedStore(this);
   }
 
 }

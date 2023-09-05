@@ -8,20 +8,37 @@ import { OpenNotification } from 'web/helper';
 import { useMobility } from 'web/hooks';
 import { DefaultLayout } from 'web/layouts'
 import { BASE_URL } from 'web/roots';
+import { authStore } from 'web/store';
 import { apiPaginatedTypes, apiTypes, mobilityDeviceType } from 'web/types';
+import Cookies from "js-cookie";
 
 export const getServerSideProps: GetServerSideProps<{
     repo: apiPaginatedTypes
 }> = async (context) => {
-    let auth: any = context.req.cookies?.Auth;
+    const { req, res } = context;
+    let auth: any = req.cookies?.Auth;
     auth = JSON.parse(auth);
-    const res = await apiInstance.get(BASE_URL + 'mobility_device_types/get_all', {
+    const rep: any = await apiInstance.get(BASE_URL + 'mobility_device_types/get_all', {
         headers: {
             Authorization: `Bearer ${auth.token.access_token}`,
         },
     });
-    const repo = res.data;
-    return { props: { repo } }
+    if (rep.status) {
+        const repo = rep.data;
+        return { props: { repo } }
+    } else {
+        if (rep.response.status === 401) {
+            res.setHeader(
+                'Set-Cookie',
+                'Auth=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/'
+            )
+            const repo = {};
+            return { props: { repo } }
+        } else {
+            const repo = {};
+            return { props: { repo } }
+        }
+    }
 }
 
 export default function MobilityDeviceTypes({
@@ -29,11 +46,11 @@ export default function MobilityDeviceTypes({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
 
     const [mobilityTypeData, setMobilityTypeData] = useState<mobilityDeviceType[]>([])
-    const {states, mobilityDeviceTypes, deleteMobilityType} = useMobility();
-    const {refetch, isSuccess, isFetching} = mobilityDeviceTypes;
+    const { states, mobilityDeviceTypes, deleteMobilityType } = useMobility();
+    const { refetch, isSuccess, isFetching } = mobilityDeviceTypes;
 
     const DeleteMobilityDeviceType = (id: number, name: string) => {
-        deleteMobilityType.mutate({id: id}, {
+        deleteMobilityType.mutate({ id: id }, {
             onSuccess: (val: apiTypes) => {
                 if (val.status) {
                     OpenNotification({
@@ -54,14 +71,14 @@ export default function MobilityDeviceTypes({
     }
 
     useEffect(() => {
-        const res: any = repo.items;
+        const res: any = repo && repo.items;
         if (res?.length > 0) {
             setMobilityTypeData(res)
         }
         if (isSuccess) {
             setMobilityTypeData(states.mobilityTypeData);
         }
-    }, [isSuccess, repo.items, states.mobilityTypeData])
+    }, [isSuccess, repo, repo.items, states.mobilityTypeData])
 
     return (
         <DefaultLayout title="Mobility Device Types">
@@ -73,12 +90,12 @@ export default function MobilityDeviceTypes({
                                 <div className="h-100">
                                     <GreetingText description="View all mobility device types" additionalComponent={() => (
                                         <>
-                                        <div className='d-flex align-items-center'>
-                                        <a href='#' onClick={() => refetch()} className="btn btn-dark mx-2 btn-sm waves-effect waves-light layout-rightside-btn"><i className='las la-sync-alt '></i> {isFetching ? 'Reloading' : 'Reload'}</a>
-                                        <Link href="/app/mobility-devices/mobility-types/create" className="btn-info mx-2 waves-effect waves-light layout-rightside-btn">
-                                            <p>Create Mobility Device Type</p>
-                                        </Link>
-                                        </div>
+                                            <div className='d-flex align-items-center'>
+                                                <a href='#' onClick={() => refetch()} className="btn btn-dark mx-2 btn-sm waves-effect waves-light layout-rightside-btn"><i className='las la-sync-alt '></i> {isFetching ? 'Reloading' : 'Reload'}</a>
+                                                <Link href="/app/mobility-devices/mobility-types/create" className="btn-info mx-2 waves-effect waves-light layout-rightside-btn">
+                                                    <p>Create Mobility Device Type</p>
+                                                </Link>
+                                            </div>
                                         </>
                                     )} />
                                     <ExportData title='All Mobility device types'>

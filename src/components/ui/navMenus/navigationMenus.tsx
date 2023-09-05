@@ -76,10 +76,24 @@ export const NavigationMenus = () => {
                                 <i className="ri-device-line"></i> <span data-key="t-widgets">Charging Stations</span>
                             </Link>
                         </li>
+
                         <li className="nav-item">
-                            <Link className="nav-link menu-link" href="/app/transactions">
-                                <i className="ri-device-line"></i> <span data-key="t-widgets">Transactions</span>
+                            <Link className="nav-link menu-link" href="#transactions" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarApps">
+                                <i className="ri-device-line"></i> <span data-key="t-apps">Transactions</span>
                             </Link>
+                            <div className="collapse menu-dropdown" id="transactions">
+                                <ul className="nav nav-sm flex-column">
+                                    <li className="nav-item">
+                                        <Link href="/app/transactions/users" className="nav-link" data-key="t-wallet-activity"> Users </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href="/app/transactions/mobility-devices" className="nav-link" data-key="t-users"> Mobility Devices </Link>
+                                    </li>
+                                    <li className="nav-item">
+                                        <Link href="/app/transactions/charging-stations" className="nav-link" data-key="t-users"> Charging Stations </Link>
+                                    </li>
+                                </ul>
+                            </div>
                         </li>
 
 
