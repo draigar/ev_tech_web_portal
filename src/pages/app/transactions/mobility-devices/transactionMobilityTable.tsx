@@ -53,7 +53,7 @@ const TransactionMobilityTable = (props: UsersTableProp) => {
     }, [result]);
 
     return (
-        <ExportData title='All Mobility Transactions' jsonSheet={dataToExport} fileName='Mobility device data' hasOptions={true}>
+        <ExportData title='All Mobility Transactions' jsonSheet={dataToExport} fileName='Mobility device data' hasExcel={true}>
             {result && result.length > 0 && (
                 <table id="example" className="table table-bordered dt-responsive nowrap table-striped align-middle" style={{ width: '100%' }}>
                     <thead>
