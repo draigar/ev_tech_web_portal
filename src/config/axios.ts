@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios";
 import { ApiError } from "./errors";
 import Cookies from "js-cookie";
 import { debugAPIError, debugAPIRequest, debugAPIResponse } from "web/helper";
-import { authStore } from "web/store";
+// import { authStore } from "web/store";
 import { NextPageContext } from "next";
 
 export const nextPr = (ctx: NextPageContext) => ctx.res
@@ -42,7 +42,7 @@ apiInstance.interceptors.response.use(
     console.log(error.response?.status);
     if (error.response?.status === 401) {
       Cookies.remove("Auth");
-      authStore.clearStoredData();
+      // authStore.clearStoredData();
       if (typeof window === 'undefined') {
         return error;
       } else {

@@ -44,7 +44,7 @@ export default function AdminRoles({
     const [adminRoles, setAdminRoles] = useState<adminRoles[]>();
 
     useEffect(() => {
-        const res: any = repo && repo.items;
+        const res: any = repo && repo?.items;
 
         if (res?.length > 0) {
             setAdminRoles(res)

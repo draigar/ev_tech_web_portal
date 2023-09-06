@@ -46,7 +46,7 @@ export default function ChargingStations({
     const [stationsData, setStationsData] = useState<chargingStationGetApiType[]>();
 
     useEffect(() => {
-        const res: any = repo && repo.items;
+        const res: any = repo && repo?.items;
 
         if (res?.length > 0) {
             setStationsData(res)

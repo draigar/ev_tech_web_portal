@@ -45,7 +45,7 @@ export default function Users({
     const [userData, setUserData] = useState<userType[]>([]);
 
     useEffect(() => {
-        const res: any = repo && repo.items;
+        const res: any = repo && repo?.items;
 
         if (res?.length > 0) {
             setUserData(res)

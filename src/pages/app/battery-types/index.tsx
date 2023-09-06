@@ -52,7 +52,7 @@ export default function BatteryType({
     const [batteryTypeData, setBatteryTypeData] = useState<batteryTypeApi[]>([]);
 
     useEffect(() => {
-        const res: any = repo && repo.items;
+        const res: any = repo && repo?.items;
 
         if (res?.length > 0) {
             setBatteryTypeData(res)

@@ -71,7 +71,7 @@ export default function MobilityDeviceTypes({
     }
 
     useEffect(() => {
-        const res: any = repo && repo.items;
+        const res: any = repo && repo?.items;
         if (res?.length > 0) {
             setMobilityTypeData(res)
         }

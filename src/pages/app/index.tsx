@@ -67,7 +67,7 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-end justify-content-between mt-4">
                 <div>
-                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="36894">0</span></h4>
+                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="0">0</span></h4>
                   {/* <a href="#" className="text-decoration-underline">View all orders</a> */}
                 </div>
                 <div className="avatar-sm flex-shrink-0">
@@ -95,7 +95,7 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-end justify-content-between mt-4">
                 <div>
-                  <h4 className="fs-22 fw-semibold ff-secondary mb-4">₦<span className="counter-value" data-target="559.25">0</span>k </h4>
+                  <h4 className="fs-22 fw-semibold ff-secondary mb-4">₦<span className="counter-value" data-target="0">0</span>k </h4>
                   {/* <a href="#" className="text-decoration-underline">View net earnings</a> */}
                 </div>
                 <div className="avatar-sm flex-shrink-0">
@@ -123,7 +123,7 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-end justify-content-between mt-4">
                 <div>
-                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="12.35">0</span>K </h4>
+                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="0">0</span>K </h4>
                   {/* <a href="#" className="text-decoration-underline">See details</a> */}
                 </div>
                 <div className="avatar-sm flex-shrink-0">
@@ -151,7 +151,7 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-end justify-content-between mt-4">
                 <div>
-                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="126">0</span>k </h4>
+                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="0">0</span>k </h4>
                   {/* <a href="#" className="text-decoration-underline">Withdraw money</a> */}
                 </div>
                 <div className="avatar-sm flex-shrink-0">
@@ -179,7 +179,7 @@ export default function Home() {
               </div>
               <div className="d-flex align-items-end justify-content-between mt-4">
                 <div>
-                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="23.89">0</span>k </h4>
+                  <h4 className="fs-22 fw-semibold ff-secondary mb-4"><span className="counter-value" data-target="0">0</span>k </h4>
                   {/* <a href="#" className="text-decoration-underline">Withdraw money</a> */}
                 </div>
                 <div className="avatar-sm flex-shrink-0">

@@ -9,7 +9,7 @@ import { makeAutoObservable } from "mobx";
 
 class Store {
   AppName: string = "EVTech";
-  AppDescription: string = "EVTech Mobility services";
+  AppDescription: string = "Qore EVTech";
   AppVersion: string = "1.0.0";
 
   constructor() {

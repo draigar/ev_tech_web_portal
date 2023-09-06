@@ -53,7 +53,7 @@ const TransactionUsersTable = (props: UsersTableProp) => {
     }, [result]);
 
     return (
-        <ExportData title='All User Transactions' jsonSheet={dataToExport} fileName='User transaction data'>
+        <ExportData title='All User Transactions' jsonSheet={dataToExport} fileName='User transaction data' hasPrint={true}>
             {result && result.length > 0 && (
                 <table id="example" className="table table-bordered dt-responsive nowrap table-striped align-middle" style={{ width: '100%' }}>
                     <thead>

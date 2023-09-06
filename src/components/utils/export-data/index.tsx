@@ -8,12 +8,14 @@ interface ExportDataProps {
     jsonSheet?: any;
     sheetName?: string;
     fileName?: string;
+    hasPrint?: boolean;
+    hasExcel?: boolean;
 }
 
 export const ExportData = (props: ExportDataProps) => {
 
-    const { children, title, jsonSheet, fileName, sheetName } = props;
-    const {ExportToExcel} = useExportData();
+    const { children, title, jsonSheet, fileName, sheetName, hasExcel = true, hasPrint = true } = props;
+    const { ExportToExcel } = useExportData();
     const viewComponentRef: any = useRef(null);
 
     const handlePrint = useReactToPrint({
@@ -21,7 +23,7 @@ export const ExportData = (props: ExportDataProps) => {
     });
 
     useEffect(() => {
-        
+
     }, [])
 
     return (
@@ -31,16 +33,18 @@ export const ExportData = (props: ExportDataProps) => {
                     <div className="card-header d-flex justify-content-between align-items-center">
                         <h5 className="card-title mb-0">{title}</h5>
                         <div className="d-flex justify-content-end">
-                            <div className="btn-group">
-                                <button type="button" className="btn btn-info waves-effect waves-light layout-rightside-btn">Actions</button>
-                                <button type="button" className="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <span className="visually-hidden">Toggle Dropdown</span>
-                                </button>
-                                <ul className="dropdown-menu">
-                                    <li><a className="dropdown-item" href="#" onClick={() => ExportToExcel(jsonSheet, fileName, sheetName)}>Download as Excel</a></li>
-                                    <li><a onClick={handlePrint} className="dropdown-item" href="#">Print</a></li>
-                                </ul>
-                            </div>
+                            {hasPrint && (
+                                <div className="btn-group">
+                                    <button type="button" className="btn btn-info waves-effect waves-light layout-rightside-btn">Export options</button>
+                                    <button type="button" className="btn btn-info dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <span className="visually-hidden">Toggle Dropdown</span>
+                                    </button>
+                                    <ul className="dropdown-menu">
+                                        {hasExcel && (<li><a className="dropdown-item" href="#" onClick={() => ExportToExcel(jsonSheet, fileName, sheetName)}>Download as Excel</a></li>)}
+                                        {hasPrint && (<li><a onClick={handlePrint} className="dropdown-item" href="#">Print</a></li>)}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     </div>
                     <div className="card-body" ref={viewComponentRef}>
