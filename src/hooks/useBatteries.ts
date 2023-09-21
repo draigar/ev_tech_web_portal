@@ -213,6 +213,10 @@ export const useBatteries = (config?: UseOptions) => {
         }
     })
 
+    const resetSearchResultData = () => {
+        setSearchResultData([]);
+    }
+
     return {
         fetchAllBatteries,
         batteryCreation,
@@ -226,6 +230,7 @@ export const useBatteries = (config?: UseOptions) => {
             singleBatteryData,
             batteriesByStationData,
             singleBatteryTypeData,
+            resetSearchResultData,
         },
         getSingleBatteryById,
         getBatteryByStationId,

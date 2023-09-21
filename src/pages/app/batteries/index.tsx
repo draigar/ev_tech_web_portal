@@ -265,11 +265,7 @@ export default function Batteries() {
                         <div className="row">
                             <div className="col">
                                 <div className="h-100">
-                                    <GreetingText description="Get the latest on available batteries" additionalComponent={() => (
-                                        <Link href="/app/batteries/create" className="btn-info mx-2 waves-effect waves-light layout-rightside-btn">
-                                            <p>Create Batteries</p>
-                                        </Link>
-                                    )} />
+                                    <GreetingText description="Get the latest on available batteries" />
                                     <div className="row">
                                         <div className="col-span-12">
                                             <div className="screenMap intro-y">

@@ -45,8 +45,8 @@ export interface batteryApiType {
 
 export interface createBatteryFormType {
     name: string;
-    code: string;
-    description: string;
+    code?: string;
+    description?: string;
     type_id?: number;
     status?: number;
 }
