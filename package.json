@@ -61,7 +61,8 @@
     "@types/next-pwa": "^5.6.2",
     "@types/nprogress": "^0.2.0",
     "@types/react-datepicker": "^4.15.0",
-    "@types/react-flatpickr": "^3.8.8"
+    "@types/react-flatpickr": "^3.8.8",
+    "babel-plugin-transform-remove-console": "^6.9.4"
   },
   "engines": {
     "node": ">=16"
