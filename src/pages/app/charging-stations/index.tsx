@@ -1,12 +1,13 @@
+import { Footer, GreetingText } from 'web/components'
 import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
+import { useEffect, useState } from 'react';
+
+import { BASE_URL } from 'web/roots';
+import { DefaultLayout } from 'web/layouts'
+import { ExportData } from 'web/components/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import { Footer, GreetingText } from 'web/components'
-import { ExportData } from 'web/components/utils';
 import { apiInstance } from 'web/config';
-import { DefaultLayout } from 'web/layouts'
-import { BASE_URL } from 'web/roots';
 import { apiPaginatedTypes } from 'web/types';
 import { chargingStationGetApiType } from 'web/types/chargingStationType';
 
@@ -51,7 +52,7 @@ export default function ChargingStations({
         if (res?.length > 0) {
             setStationsData(res)
         }
-    }, [repo, repo.items])
+    }, [repo, repo?.items])
 
     return (
         <DefaultLayout title="Charging stations">

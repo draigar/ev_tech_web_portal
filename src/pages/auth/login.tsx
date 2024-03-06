@@ -1,9 +1,10 @@
-import Image from 'next/image'
-import { useState } from 'react'
-import { useAuth } from 'web/hooks'
-import { AuthLayout } from 'web/layouts'
-import { config } from 'web/store'
 import { AuthData, LoginAdminApiType, UserDataType, apiTypes } from 'web/types'
+
+import { AuthLayout } from 'web/layouts'
+import Image from 'next/image'
+import { config } from 'web/store'
+import { useAuth } from 'web/hooks'
+import { useState } from 'react'
 
 export default function Login() {
 
@@ -65,7 +66,7 @@ export default function Login() {
                                         </div>
                                         <div className="text-center mt-2">
                                             <h5 className="text-primary">Welcome Back !</h5>
-                                            <p className="text-muted">Sign in to continue to {config.AppName}.</p>
+                                            <p className="text-muted">Sign in to battery swap station manager</p>
                                         </div>
                                         <div className="p-2 mt-4">
                                             <form onSubmit={DoLogin}>

@@ -1,12 +1,13 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
-import Link from 'next/link'
-import { useEffect, useState } from 'react'
 import { Footer, GreetingText } from 'web/components'
-import { ExportData } from 'web/components/utils'
-import { apiInstance } from 'web/config'
-import { DefaultLayout } from 'web/layouts'
-import { BASE_URL } from 'web/roots'
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next'
 import { adminRoles, adminTypes, apiPaginatedTypes } from 'web/types'
+import { useEffect, useState } from 'react'
+
+import { BASE_URL } from 'web/roots'
+import { DefaultLayout } from 'web/layouts'
+import { ExportData } from 'web/components/utils'
+import Link from 'next/link'
+import { apiInstance } from 'web/config'
 
 export const getServerSideProps: GetServerSideProps<{
     repo: apiPaginatedTypes
@@ -49,7 +50,7 @@ export default function AdminRoles({
         if (res?.length > 0) {
             setAdminRoles(res)
         }
-    }, [repo, repo.items])
+    }, [repo, repo?.items])
 
   return (
     <DefaultLayout title="Administration">

@@ -1,16 +1,17 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { Footer, GreetingText } from 'web/components'
-import { ExportData } from 'web/components/utils';
-import { apiInstance } from 'web/config';
-import { OpenNotification } from 'web/helper';
-import { useMobility } from 'web/hooks';
-import { DefaultLayout } from 'web/layouts'
-import { BASE_URL } from 'web/roots';
-import { authStore } from 'web/store';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { apiPaginatedTypes, apiTypes, mobilityDeviceType } from 'web/types';
+import { useEffect, useState } from 'react';
+
+import { BASE_URL } from 'web/roots';
 import Cookies from "js-cookie";
+import { DefaultLayout } from 'web/layouts'
+import { ExportData } from 'web/components/utils';
+import Link from 'next/link';
+import { OpenNotification } from 'web/helper';
+import { apiInstance } from 'web/config';
+import { authStore } from 'web/store';
+import { useMobility } from 'web/hooks';
 
 export const getServerSideProps: GetServerSideProps<{
     repo: apiPaginatedTypes
@@ -71,14 +72,16 @@ export default function MobilityDeviceTypes({
     }
 
     useEffect(() => {
-        const res: any = repo && repo?.items;
-        if (res?.length > 0) {
-            setMobilityTypeData(res)
+        if (repo && repo?.items) {
+            const res: any = repo && repo?.items;
+            if (res?.length > 0) {
+                setMobilityTypeData(res)
+            }
+            if (isSuccess) {
+                setMobilityTypeData(states.mobilityTypeData);
+            }
         }
-        if (isSuccess) {
-            setMobilityTypeData(states.mobilityTypeData);
-        }
-    }, [isSuccess, repo, repo.items, states.mobilityTypeData])
+    }, [isSuccess, repo, repo?.items, states.mobilityTypeData])
 
     return (
         <DefaultLayout title="Mobility Device Types">

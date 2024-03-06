@@ -1,13 +1,14 @@
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
 import { DefaultButton, GreetingText } from "web/components";
-import { apiInstance } from "web/config";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { OpenNotification, formatter } from "web/helper";
-import { useAuth } from "web/hooks";
-import { DefaultLayout } from "web/layouts";
-import { BASE_URL } from "web/roots";
 import { adminRoles, apiPaginatedTypes, apiTypes, batteryTypeApi, createAdminFormType, createBatteryFormType } from "web/types";
+import { useCallback, useEffect, useState } from "react";
+
+import { BASE_URL } from "web/roots";
+import { DefaultLayout } from "web/layouts";
+import { apiInstance } from "web/config";
+import { useAuth } from "web/hooks";
+import { useRouter } from "next/router";
 
 export const getServerSideProps: GetServerSideProps<{
     repo: apiPaginatedTypes
@@ -47,7 +48,7 @@ export default function CreateAdmin({
     }
 
     useEffect(() => {
-        const res: any = repo.items;
+        const res: any = repo && repo?.items;
 
         let generatedPassword = formatter.generatePassword('12', '8')
         generatedPassword = generatedPassword;
@@ -56,7 +57,7 @@ export default function CreateAdmin({
         if (res?.length > 0) {
             setAdminRoles(res)
         }
-    }, [repo.items])
+    }, [repo, repo?.items])
 
     const DoCreateAdmin = () => {
         if (username === '' && email === '') {

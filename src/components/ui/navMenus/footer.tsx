@@ -11,7 +11,7 @@ export const Footer = () => {
                     </div>
                     <div className="col-sm-6">
                         <div className="text-sm-end d-none d-sm-block">
-                            Design & Develop by Astutia Technologies
+                            Designed & Develop by Astutia Technologies
                         </div>
                     </div>
                 </div>
