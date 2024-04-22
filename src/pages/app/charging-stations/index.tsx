@@ -16,10 +16,10 @@ export const getServerSideProps: GetServerSideProps<{
 }> = async (context) => {
     const { req, res } = context;
     let auth: any = req.cookies?.Auth;
-    auth = JSON.parse(auth);
+    auth = auth && JSON.parse(auth);
     const rep: any = await apiInstance.get(BASE_URL + 'stations/get_all', {
         headers: {
-            Authorization: `Bearer ${auth.token.access_token}`,
+            Authorization: `Bearer ${auth?.token.access_token}`,
         },
     });
     if (rep.status) {
@@ -136,7 +136,7 @@ export default function ChargingStations({
                                                                                         <span className="dropdown-item"><i className="ri-eye-fill align-bottom me-2 text-muted"></i> View</span>
                                                                                     </Link>
                                                                                 </li>
-                                                                                <li><a className="dropdown-item edit-item-btn"><i className="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</a></li>
+                                                                                <li><Link href={`/app/charging-stations/edit/${el.name.replaceAll(' ', '_')}/${el.id}`} className="dropdown-item edit-item-btn"><i className="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</Link></li>
                                                                                 <li>
                                                                                     <a className="dropdown-item remove-item-btn">
                                                                                         <i className="ri-delete-bin-fill align-bottom me-2 text-muted"></i> Delete

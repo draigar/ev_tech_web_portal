@@ -1,9 +1,10 @@
-import { useState } from "react";
-import { useMutation } from "react-query"
-import { http } from "web/config"
+import { chargingStationGetApiType, createChargingStationFormType } from "web/types/chargingStationType";
+
 import { ErrorHelper } from "web/helper";
 import { apiTypes } from "web/types";
-import { chargingStationGetApiType, createChargingStationFormType } from "web/types/chargingStationType";
+import { http } from "web/config"
+import { useMutation } from "react-query"
+import { useState } from "react";
 
 export const useChargingStations = () => {
     const [stationSingleData, setStationSingleData] = useState<chargingStationGetApiType>();
@@ -11,6 +12,19 @@ export const useChargingStations = () => {
     const createStation = useMutation(async (data: createChargingStationFormType) => {
         try {
             const req: any = await http.post('stations/create', data);
+            const res = req.data;
+            return res;
+        } catch (e: any) {
+            console.log(e);
+            const error = e?.response.data;
+            ErrorHelper(error?.errors);
+            throw e;
+        }
+    })
+    
+    const updateStation = useMutation(async (data: {payload: createChargingStationFormType, id: number}) => {
+        try {
+            const req: any = await http.post(`stations/update/${data.id}`, data.payload);
             const res = req.data;
             return res;
         } catch (e: any) {
@@ -48,6 +62,7 @@ export const useChargingStations = () => {
         chargingStates: {
             stationSingleData,
         },
-        getSingleStation
+        getSingleStation,
+        updateStation,
     }
 }

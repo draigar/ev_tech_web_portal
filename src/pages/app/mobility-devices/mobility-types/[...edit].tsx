@@ -1,11 +1,12 @@
-import { useRouter } from 'next/router'
-import { useCallback, useEffect, useState } from 'react';
 import { Footer, GreetingText } from 'web/components'
+import { apiPaginatedTypes, apiTypes, mobilityDeviceCreateType, mobilityDeviceType } from 'web/types';
+import { useCallback, useEffect, useState } from 'react';
+
+import { DefaultLayout } from 'web/layouts'
 import { LogoSpinnerLoader } from 'web/components/utils';
 import { OpenNotification } from 'web/helper';
 import { useMobility } from 'web/hooks';
-import { DefaultLayout } from 'web/layouts'
-import { apiPaginatedTypes, apiTypes, mobilityDeviceCreateType, mobilityDeviceType } from 'web/types';
+import { useRouter } from 'next/router'
 
 export default function EditMobilityType() {
     const router = useRouter();
@@ -112,7 +113,7 @@ export default function EditMobilityType() {
                                                             <label htmlFor="name" className="form-label">Mobility Type Name</label>
                                                             <input type="text" required value={name} onChange={(e) => setName(e.target.value)} className="form-control" id="name" />
                                                         </div>
-                                                        <div className="col-lg-12 mt-2">
+                                                        {/* <div className="col-lg-12 mt-2">
                                                             <label htmlFor="voltage" className="form-label">Number of wheels</label>
                                                             <input type="text" required value={number_of_wheels} onChange={(e) => setWheels(e.target.value)} className="form-control" id="voltage" />
                                                         </div>
@@ -123,7 +124,7 @@ export default function EditMobilityType() {
                                                         <div className="col-lg-12 mt-2">
                                                             <label htmlFor="power" className="form-label">Number required without return</label>
                                                             <input type="text" required value={number_required_without_return} onChange={(e) => setReturn(e.target.value)} className="form-control" id="power" />
-                                                        </div>
+                                                        </div> */}
                                                         <div className="col-md-12 mt-2">
                                                             <label htmlFor="batteryDescription" className="form-label">Mobility Type Description</label>
                                                             <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" id="batteryDescription" />

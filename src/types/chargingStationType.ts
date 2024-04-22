@@ -24,8 +24,8 @@ export interface createChargingStationFormType {
     address: string,
     city: string,
     state: string,
-    number_of_slots: number,
-    image: any,
+    number_of_slots?: number,
+    image?: any,
 }
 
 export interface slotsType {

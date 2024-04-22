@@ -1,9 +1,9 @@
-import Link from 'next/link'
-import React, { useEffect } from 'react';
-
 import 'datatables.net-dt/css/jquery.dataTables.css';
 import 'datatables.net-responsive-dt/css/responsive.dataTables.css';
 
+import React, { useEffect } from 'react';
+
+import Link from 'next/link'
 // import $ from 'jquery';
 // import 'datatables.net';
 // import 'datatables.net-responsive';
@@ -41,7 +41,7 @@ const BatteryTable = (props: BatteryTableProp) => {
                     <th>Fee</th>
                     <th>Status</th>
                     <th>Created At</th>
-                    <th>Action</th>
+                    {/* <th>Action</th> */}
                 </tr>
             </thead>
             <tbody>
@@ -61,13 +61,13 @@ const BatteryTable = (props: BatteryTableProp) => {
                         <td>{el.fee}</td>
                         <td><span className="badge badge-soft-info">{el.status === "1" ? 'Active' : 'In Active'}</span></td>
                         <td><span className="">{el.created_at}</span></td>
-                        <td>
+                        {/* <td>
                             <div className="dropdown d-inline-block">
                                 <button className="btn btn-soft-secondary btn-sm dropdown" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="ri-more-fill align-middle"></i>
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end">
-                                    {/* <li><a href="#!" className="dropdown-item"><i className="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li> */}
+                                    <li><a href="#!" className="dropdown-item"><i className="ri-eye-fill align-bottom me-2 text-muted"></i> View</a></li>
                                     <li>
                                         <Link href={`/app/battery-types/${el.name}/${el.id}`}>
                                         <span className="dropdown-item edit-item-btn"><i className="ri-pencil-fill align-bottom me-2 text-muted"></i> Edit</span>
@@ -80,7 +80,7 @@ const BatteryTable = (props: BatteryTableProp) => {
                                     </li>
                                 </ul>
                             </div>
-                        </td>
+                        </td> */}
                     </tr>
                 ))}
             </tbody>

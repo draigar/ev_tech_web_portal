@@ -1,7 +1,8 @@
-import { useState, useEffect, useMemo } from 'react';
-import { GoogleMap, MarkerF, CircleF, useLoadScript } from '@react-google-maps/api';
-import { nightStyles } from './nightStyles';
+import { CircleF, GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
+import { useEffect, useMemo, useState } from 'react';
+
 import { darkStyles } from './darkStyles';
+import { nightStyles } from './nightStyles';
 
 interface MarkerObj {
     position: google.maps.LatLngLiteral;

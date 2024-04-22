@@ -1,10 +1,11 @@
-import Link from 'next/link';
-import { useState } from 'react'
 import { Footer, GreetingText } from 'web/components'
+import { apiTypes, mobilityDeviceCreateType } from 'web/types';
+
+import { DefaultLayout } from 'web/layouts'
+import Link from 'next/link';
 import { OpenNotification } from 'web/helper';
 import { useMobility } from 'web/hooks';
-import { DefaultLayout } from 'web/layouts'
-import { apiTypes, mobilityDeviceCreateType } from 'web/types';
+import { useState } from 'react'
 
 export default function CreateMobilityType() {
 
@@ -73,7 +74,7 @@ export default function CreateMobilityType() {
                                         <div className="col-md-4">
                                             <div className="card card-animate">
                                                 <div className="card-body">
-                                                    <p>Create your battery data</p>
+                                                    <p>Create your mobility device types</p>
                                                     <div className="row">
                                                         <div className="col-lg-12">
                                                             <label htmlFor="name" className="form-label">Mobility Type Name</label>

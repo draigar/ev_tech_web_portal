@@ -1,9 +1,10 @@
-import { useState } from 'react'
 import { Footer, GreetingText } from 'web/components'
+import { apiTypes, batteryCreateType } from 'web/types';
+
+import { DefaultLayout } from 'web/layouts'
 import { OpenNotification } from 'web/helper';
 import { useBatteries } from 'web/hooks';
-import { DefaultLayout } from 'web/layouts'
-import { apiTypes, batteryCreateType } from 'web/types';
+import { useState } from 'react'
 
 export default function BatteryTypeCreate() {
 
@@ -11,9 +12,9 @@ export default function BatteryTypeCreate() {
     const [description, setDescription] = useState('');
     const [voltage, setVoltage] = useState('');
     const [power, setPower] = useState('');
-    const [fee, setFee] = useState(0);
-    const [collectionDays, setCollectionDays] = useState(0);
-    const [collectionFees, setCollectionFees] = useState(0);
+    const [fee, setFee] = useState('');
+    const [collectionDays, setCollectionDays] = useState('');
+    const [collectionFees, setCollectionFees] = useState('');
 
     const {createBatteryType} = useBatteries();
 
@@ -22,23 +23,26 @@ export default function BatteryTypeCreate() {
         setDescription('');
         setVoltage('');
         setPower('');
-        setFee(0);
-        setCollectionDays(0);
-        setCollectionFees(0);
+        setFee('');
+        setCollectionDays('');
+        setCollectionFees('');
     };
 
     const DoCreateType = () => {
-        if (name === '' && fee === 0) {
+        const batCode = (Math.random() + 1).toString(36).substring(9)
+        if (name === '' && fee === '') {
             OpenNotification({
                 description: 'Battery Name and Code are required',
                 type: 'warning'
             })
         } else {
+            
             const payload: batteryCreateType = {
-                collection_due_days: collectionDays,
-                collection_due_fees: collectionFees,
+                code: batCode,
+                collection_due_days: parseInt(collectionDays, 10),
+                collection_due_fees: parseInt(collectionFees, 10),
                 description: description,
-                fee: fee,
+                fee: parseInt(fee, 10),
                 name: name,
                 power: power,
                 voltage: voltage,
@@ -82,7 +86,7 @@ export default function BatteryTypeCreate() {
                                         <div className="col-md-4">
                                             <div className="card card-animate">
                                                 <div className="card-body">
-                                                    <p>Create your battery data</p>
+                                                    <p>Create your battery type</p>
                                                     <div className="row">
                                                         <div className="col-lg-12">
                                                             <label htmlFor="name" className="form-label">Battery Type Name</label>
@@ -98,15 +102,15 @@ export default function BatteryTypeCreate() {
                                                         </div>
                                                         <div className="col-lg-12 mt-2">
                                                             <label htmlFor="fee" className="form-label">Battery Fee</label>
-                                                            <input type="text" required value={fee} onChange={(e) => setFee(parseInt(e.target.value, 10))} className="form-control" id="fee" />
+                                                            <input type="text" required value={fee} onChange={(e) => setFee(e.target.value)} className="form-control" id="fee" />
                                                         </div>
                                                         <div className="col-lg-12 mt-2">
                                                             <label htmlFor="dueDays" className="form-label">Battery Collection due days</label>
-                                                            <input type="text" required value={collectionDays} onChange={(e) => setCollectionDays(parseInt(e.target.value, 10))} className="form-control" id="dueDays" />
+                                                            <input type="text" required value={collectionDays} onChange={(e) => setCollectionDays(e.target.value)} className="form-control" id="dueDays" />
                                                         </div>
                                                         <div className="col-lg-12 mt-2">
                                                             <label htmlFor="dueFees" className="form-label">Battery Collection due fees</label>
-                                                            <input type="text" required value={collectionFees} onChange={(e) => setCollectionFees(parseInt(e.target.value, 10))} className="form-control" id="dueFees" />
+                                                            <input type="text" required value={collectionFees} onChange={(e) => setCollectionFees(e.target.value)} className="form-control" id="dueFees" />
                                                         </div>
                                                         <div className="col-md-12 mt-2">
                                                             <label htmlFor="batteryDescription" className="form-label">Battery Type Description</label>

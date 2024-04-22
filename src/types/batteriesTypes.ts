@@ -63,6 +63,7 @@ export interface batteryTypeApi {
 }
 
 export interface batteryCreateType {
+    code: string,
     name: string,
     description: string,
     voltage: string,
