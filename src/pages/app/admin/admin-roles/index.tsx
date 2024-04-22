@@ -60,11 +60,11 @@ export default function AdminRoles({
                         <div className="row">
                             <div className="col">
                                 <div className="h-100">
-                                    <GreetingText description="Administration page" additionalComponent={() => (
+                                    {/* <GreetingText description="Administration page" additionalComponent={() => (
                                         <Link href="/app/admin/admin-roles/create" className="btn-info mx-2 waves-effect waves-light layout-rightside-btn">
                                             <p>Create Admin Role</p>
                                         </Link>
-                                    )} />
+                                    )} /> */}
                                     <div className="row">
                                         <div className="col-lg-12">
                                             <ExportData title='All Admin Roles'>
